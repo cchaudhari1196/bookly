@@ -41,9 +41,9 @@ public class ProductController {
 	public List<Product> searchbykeyword(@RequestBody Product p) {
 		return pservice.searchbykeyword(p.getPname(), p.getPdesc());
 	}
-	@GetMapping("/raw")
-	public List<Product> getAllRaw() {
-		return pservice.getAllRaw().stream().filter(e -> e.getPqty()>0).collect(Collectors.toList());
+	@GetMapping()
+	public List<Product> getByCatrgory(@RequestParam("category") String category) {
+		return pservice.getProductsByCategory(category).stream().filter(e -> e.getPqty()>0).collect(Collectors.toList());
 	}
 
 

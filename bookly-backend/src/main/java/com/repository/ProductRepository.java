@@ -12,14 +12,12 @@ import java.util.List;
 @Repository
 @Transactional
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-	@Query(value = "select * from product where c_id=?1", nativeQuery = true)
-	public List<Product> getByCategoryId( int c_id);
+
+	@Query(value = "select p from Product p join p.categories c where c.c_name=?1")
+	public List<Product> getByCategoryName( String name);
 
 	@Query(value = "select * from product where pname=?1 or pdesc=?2", nativeQuery = true)
 	public List<Product> searchbykeyword(String pname, String pdesc);
-
-	@Query(value = "select * from product where c_id in(select c_id from category where c_type='RAW')", nativeQuery = true)
-	public List<Product> getAllRaw();
 
 	@Query(value = "select * from product where c_id in(select c_id from category where c_type='STITCHED')", nativeQuery = true)
 	public List<Product> getAllStitched();
