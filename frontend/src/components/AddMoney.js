@@ -99,7 +99,7 @@ export default class AddMoney extends React.Component {
       currency: data.currency,
       amount: data.amount.toString(),
       order_id: data.id,
-      name: 'First Choice',
+      name: 'Bookly',
       description: 'Add to wallet',
       image: process.env.REACT_APP_BASE_URL + '/files/Logo.png',
       handler: async (response) => {

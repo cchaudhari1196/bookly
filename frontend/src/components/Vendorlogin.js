@@ -170,14 +170,14 @@ class VendorLogin extends React.Component {
                         <Form.Label>Password</Form.Label>
                         <Form.Control type='password' name="vpassword" value={this.state.vpassword} onChange={this.handleChange} />
                     </Form.Group>
-                    <p>By signing in you will agree all the terms & condition by First Choice</p>
+                    <p>By signing in you will agree all the terms & condition by Bookly</p>
                     <button type="submit" disabled={!this.state.isFormValid} className={this.state.isFormValid ? 'innerbutton' : "inactivebtn"} onClick={this.signIn}>Sign In</button><br />
                     {this.state.isError &&
                         <Form.Text style={{ color: 'red' }}>
                             Incorrect Email and Password
                         </Form.Text>
                     }
-                    <Link to="/vendorregister" ><button className='innerbutton'> Create your Vendor's First Choice Account</button></Link>
+                    <Link to="/vendorregister" ><button className='innerbutton'> Create your Vendor's Bookly Account</button></Link>
                     <Form.Group className="mb-2" controlId="formBasicEmail">
                         <Link to="/login" ><button className='innerbutton'><ArrowBackIcon />Back</button></Link><br />
                     </Form.Group>

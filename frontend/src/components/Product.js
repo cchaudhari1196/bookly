@@ -9,15 +9,16 @@ function Product({
   id,
   title,
   describe,
-  size,
-  brand,
   price,
   image,
   rating,
-  c_type,
-  c_name,
+  categories,
+  authors,
   p_qty,
   imageUrl,
+  language,
+  noOfPages,
+  publisher,
 }) {
   const [{ basket }, dispatch] = useStateValue()
   console.log('this is basket', basket)
@@ -31,14 +32,12 @@ function Product({
         pid: id,
         pname: title,
         pdesc: describe,
-        psize: size,
-        pbrand: brand,
         pimage: image,
         pprice: price,
         prating: rating,
         p_qty: p_qty,
-        c_type: c_type,
-        c_name: c_name,
+        categories: categories,
+        authors: authors,
         quantity: 1,
         imageUrl: imageUrl,
       },
@@ -74,19 +73,24 @@ function Product({
         </div>
         <Card.Body>
           <Card.Title>{title}</Card.Title>
-          <Card.Text style={{ marginBottom: '0px' }}>{describe}</Card.Text>
-          <Card.Text style={{ marginBottom: '0px' }}>Size - {size}</Card.Text>
-          <Card.Text style={{ marginBottom: '0px' }}>Brand - {brand}</Card.Text>
+          <Card.Text style={{ marginBottom: '0px' }}>
+            <button className="mb-1" style={{border: '1px solid #6e1230',backgroundColor:"transparent",color:"#6e1230",fontSize:"14px"}}>QUICK PREVIEW</button>
+          </Card.Text>
+          <Card.Text style={{ marginBottom: '0px' }}>
+            {
+              authors.map(a => (
+                <div>{a.a_name}</div>
+              ))
+            }
+          </Card.Text>
           <Card.Text>
             {/* <small>Rs </small> */}
             <strong>₹{price}</strong>
           </Card.Text>
           <Card.Text style={{ marginBottom: '0px' }}>
-            {c_type === 'RAW'
-              ? 'Available Stocks :'
-              : 'Available Stocks :'}
+            'Available Stocks :
             <strong>
-              {p_qty} {c_type === 'RAW' ? 'mtrs' : ''}
+              {p_qty}
             </strong>
           </Card.Text>
           <Card.Text className="product_rating">
