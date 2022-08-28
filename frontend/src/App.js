@@ -34,6 +34,7 @@ import Awallet from './components/Awallet.js';
 import Vwallet from './components/Vwallet.js';
 import AboutUs from './components/AboutUs.js';
 import { ToastContainer } from 'react-toastify';
+import CategoriesWiseProduct from './components/categoriesWiseProduct';
 function App() {
   return (
     <Router>
@@ -78,6 +79,8 @@ function App() {
           <Route path="/vwallet" element={<><VendorHeader /><Vwallet /></>} />
           <Route path="/raw" element={<><Header />
             <RawProducts /></>} />
+          <Route path="/products/:category" element={<><Header />
+            <CategoriesWiseProduct /></>} />
           <Route path="/stitched" element={<><Header />
             <StitchedProducts /></>} />
           <Route path="/about-us" element={<><Header />

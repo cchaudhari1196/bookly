@@ -1,6 +1,6 @@
 import SimpleImageSlider from "react-simple-image-slider";
-import Slide1 from '../assets/img/slide1.jpeg'
-import Slide2 from '../assets/img/slide2.jpeg'
+import Slide1 from '../assets/img/slide1.jpg'
+import Slide2 from '../assets/img/slide2.jpg'
 
 const images = [
     { url: Slide1 },
