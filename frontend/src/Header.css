@@ -3,6 +3,10 @@
     align-items: center;
     color: rgb(110, 18, 48);
 }
+.dropdown-menu {
+    overflow-y: scroll;
+    height: 250px;
+}
 .header{
     height:60px;
     display:flex;
