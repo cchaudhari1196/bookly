@@ -4,25 +4,25 @@ import { Link } from 'react-router-dom'
 import 'react-dropdown/style.css'
 import { Form, Table } from 'react-bootstrap'
 
-export default class AddProduct extends React.Component {
+export default class AddLangauage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      cname: '',
+      lname: '',
       to:[]
     }
   }
-
+  
   componentDidMount = () => {
-    fetch(process.env.REACT_APP_BASE_URL + '/category')
+    fetch(process.env.REACT_APP_BASE_URL + '/register/languages')
       .then((resp) => resp.json())
       .then((data) => this.setState({ to: data }))
   }
 
   handleChange = (a) => {
-    this.setState({ cname: a.target.value })
-    console.log(this.state.cname)
+    this.setState({ lname: a.target.value })
   }
+
   submitForm = async (e) => {
     e.preventDefault()
     const reqData = {
@@ -31,30 +31,30 @@ export default class AddProduct extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        c_name: this.state.cname,
+        language: this.state.lname,
       }),
     }
-    await fetch(process.env.REACT_APP_BASE_URL + '/category', reqData)
+    await fetch(process.env.REACT_APP_BASE_URL + '/register/language', reqData)
       .then((resp) => resp.json())
       .then((data) => this.setState({ st: data, success: true }))
-    window.location.href = '/addcategory'
+    window.location.href = '/addlanguage'
   }
   render() {
     return (
-      <div style={{display:"flex",justifyContent: "space-evenly"}} >
+      <div style={{display:"flex",justifyContent: "space-evenly"}}>
         <div className="register_container mt-4">
           <form>
             <Form.Group className="mb-2">
-              <Form.Label>Category Name</Form.Label>
+              <Form.Label>Language</Form.Label>
               <Form.Control
                 type="text"
-                name="cname"
-                value={this.state.cname}
+                name="lname"
+                value={this.state.lname}
                 onChange={this.handleChange}
               />
             </Form.Group>
 
-            <Link to="/viewproducts">
+            <Link to="/addlanguage">
               {' '}
               <button
                 className="innerbutton mt-3"
@@ -62,7 +62,7 @@ export default class AddProduct extends React.Component {
                 value="Submit"
                 onClick={this.submitForm}
               >
-                Add Category
+                Add Language
               </button>
             </Link>
             <br />
@@ -70,41 +70,41 @@ export default class AddProduct extends React.Component {
         </div>
 
         <div>
-            {this.state.to.length != 0 ? (
+          {this.state.to.length != 0 ? (
             <div className="vhome">
-                <div className="vhome_container">
+              <div className="vhome_container">
                 <div className="vhome_row">
-                    <Table striped bordered hover style={{ textAlign: 'center' }}>
+                  <Table striped bordered hover style={{ textAlign: 'center' }}>
                     <thead>
-                        <tr style={{ backgroundColor: '#6e1230', color: 'white' }}>
-                        <th>Category ID</th>
-                        <th>Category Name</th>
-                        </tr>
+                      <tr style={{ backgroundColor: '#6e1230', color: 'white' }}>
+                        <th>Language ID</th>
+                        <th>Language Name</th>
+                      </tr>
                     </thead>
                     <tbody>
-                        {this.state.to.map((o) => {
+                      {this.state.to.map((o) => {
                         return (
-                            <tr>
-                            <td>{o.c_id}</td>
-                            <td>{o.c_name}</td>
-                            </tr>
+                          <tr>
+                            <td>{o.language_id}</td>
+                            <td>{o.language}</td>
+                          </tr>
                         )
-                        })}
+                      })}
                     </tbody>
-                    </Table>
+                  </Table>
                 </div>
                 <div className="">
-                    Total Number Of Category:
-                    <br />
-                    {this.state.to.length}
+                  Total Number Of Category:
+                  <br />
+                  {this.state.to.length}
                 </div>
-                </div>
+              </div>
             </div>
-            ) : (
+          ) : (
             <div style={{ textAlign: 'center', color: 'black' }}>
-                <h2>No Data</h2>
+              <h2>No Data</h2>
             </div>
-            )}
+          )}
         </div>
       </div>
     )

@@ -19,6 +19,7 @@ public class Product {
 	
 	private String pname;
 
+	@Column(columnDefinition = "TEXT")
 	private String pdesc;
 	
 	private int prating;

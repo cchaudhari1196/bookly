@@ -43,7 +43,7 @@ export default class AddProduct extends React.Component {
       allCategories: [],
       allLanguages: [],
       selectedAuthors: [],
-      selectedPublishers: [],
+      selectedPublishers: {},
       selectedCategories: [],
       selectedLanguage: [],
     }
@@ -238,6 +238,7 @@ export default class AddProduct extends React.Component {
     }).catch((err) => { })
   }
   onClickAddAuthor = () => {
+    this.setState({ isShowAddAuthorModal: false })
     let data = {
       a_name: this.state.newAuthorName
     }
@@ -250,6 +251,7 @@ export default class AddProduct extends React.Component {
     }).catch((err) => { })
   }
   onClickAddPublisher = () => {
+    this.setState({ isShowAddPublisherModal: false })
     let data = {
       p_name: this.state.newPublisherName
     }
@@ -258,7 +260,7 @@ export default class AddProduct extends React.Component {
       this.setState({
         isShowAddPublisherModal: false,
         allPublishers: [...this.state.allPublishers, { value: res.data.publisher_id, label: res.data.p_name }],
-        selectedPublishers: [...this.state.selectedPublishers, { value: res.data.publisher_id, label: res.data.p_name }]
+        selectedPublishers: { value: res.data.publisher_id, label: res.data.p_name }
       })
     }).catch((err) => { })
   }
@@ -312,8 +314,7 @@ export default class AddProduct extends React.Component {
           <Modal.Footer>
             <Button onClick={() => this.setState({ isShowAddAuthorModal: false })}>Close</Button>
             <Button variant="success"
-              disabled={this.state.newAuthorName === ''}
-              onClick={() => this.setState({ isShowAddAuthorModal: false })} onClick={this.onClickAddAuthor}>Add</Button>
+              disabled={this.state.newAuthorName === ''} onClick={this.onClickAddAuthor}>Add</Button>
           </Modal.Footer>
         </Modal>
 
@@ -345,8 +346,7 @@ export default class AddProduct extends React.Component {
           <Modal.Footer>
             <Button onClick={() => this.setState({ isShowAddPublisherModal: false })}>Close</Button>
             <Button variant="success"
-              disabled={this.state.newPublisherName === ''}
-              onClick={() => this.setState({ isShowAddPublisherModal: false })} onClick={this.onClickAddPublisher}>Add</Button>
+              disabled={this.state.newPublisherName === ''} onClick={this.onClickAddPublisher}>Add</Button>
           </Modal.Footer>
         </Modal>
         {this.state.isLoading ? <Loader /> :
@@ -453,7 +453,7 @@ export default class AddProduct extends React.Component {
               <Form.Control type="file" onChange={this.onChangeImage} />
             </Form.Group>
             <span style={{ color: 'red' }}>*Upload Imgage within 2MB size</span>
-            {this.state.p_image !== null && this.state.p_image == undefined && (
+            {(this.state.p_image !== null && this.state.p_image !== undefined) && (
               <div>
                 <img
                   src={this.state.p_image}

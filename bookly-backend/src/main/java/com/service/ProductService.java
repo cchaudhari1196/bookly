@@ -65,6 +65,7 @@ public class ProductService {
 							.stream().map(e->registrationService.getCategory(e)).collect(Collectors.toSet());
 			productEntity.setCategories(categories);
 			productEntity.setPublisher(registrationService.getPublisher(product.getPublisherId()));
+			productEntity.setLanguage(registrationService.getLangauage(product.getLanguage()));
 			productEntity.setVdr(vendorService.getVendor(product.getvId()));
 			productRepository.save(productEntity);
 			return productEntity.getP_id();

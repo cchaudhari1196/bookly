@@ -1,12 +1,14 @@
 import React from 'react'
 import '../compheader.css'
-import { Table } from 'react-bootstrap'
+import { Button, Modal, Row, Table } from 'react-bootstrap'
 
 export default class ViewProducts extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       to: [],
+      isQuickPreview: false,
+      desc:""
     }
   }
   componentDidMount = () => {
@@ -14,10 +16,29 @@ export default class ViewProducts extends React.Component {
       .then((resp) => resp.json())
       .then((data) => this.setState({ to: data }))
   }
+
+  handleShowMoreLink = (desc) => {
+    this.setState({isQuickPreview:true,desc:desc})
+  }
   render() {
     const to1 = this.state.to.length
     return (
       <div>
+         <Modal size="lg" show={this.state.isQuickPreview} onHide={() => this.setState({isQuickPreview:false})}>
+            <Modal.Header closeButton>
+            {/* <Modal.Title>Modal heading</Modal.Title> */}
+            </Modal.Header>
+            <Modal.Body>
+            <Row>
+            <div className="mt-1">{this.state.desc}</div>
+            </Row>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={() => this.setState({isQuickPreview:false})}>
+                    Close
+                </Button>
+            </Modal.Footer>
+        </Modal>
         {to1 != 0 ? (
           <div className="vhome">
             <div className="vhome_container">
@@ -48,7 +69,7 @@ export default class ViewProducts extends React.Component {
                           </td>
                           <td>{o.vdr?.v_name}</td>
                           <td>{o.pname}</td>
-                          <td>{o.pdesc}</td>
+                          <td>{o.pdesc.substring(0,100)}... <a style={{color:"blue", cursor:"pointer"}} onClick={(e)=>this.handleShowMoreLink(o.pdesc)}>Show More</a></td>
                           <td>{o.pprice}</td>
                           <td>{o.prating}</td>
                           <td>{o.pqty}</td>

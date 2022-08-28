@@ -55,15 +55,15 @@ function Product({
   }
   return (
     <Col>
-      <Modal show={isQuickPreview} onHide={() => setIsQuickPreview(false)}>
+      <Modal size="lg" show={isQuickPreview} onHide={() => setIsQuickPreview(false)}>
         <Modal.Header closeButton>
           {/* <Modal.Title>Modal heading</Modal.Title> */}
         </Modal.Header>
         <Modal.Body>
           <Row>
             <Col md={4}>
-              <div style={{ height: '150px' }}>
-                <img src={imageUrl} alt="productImage" />
+              <div>
+                <img  style={{ width: '100%' }} src={imageUrl} alt="productImage" />
               </div>
               <div className="mt-2">
                 {checkProductInCart() ? (

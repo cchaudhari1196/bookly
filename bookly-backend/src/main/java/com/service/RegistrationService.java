@@ -52,6 +52,11 @@ public class RegistrationService {
         return publisherRepository.getById(id);
     }
 
+    public Language getLangauage(Integer id)
+    {
+        return langaugeRepository.getById(id);
+    }
+
     public List<Publisher> getAllPublisher()
     {
         return publisherRepository.findAll();

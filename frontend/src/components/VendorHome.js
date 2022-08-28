@@ -1,6 +1,6 @@
 import React from 'react'
 import '../VendorHome.css';
-import { Table } from 'react-bootstrap';
+import { Button, Modal, Row, Table } from 'react-bootstrap';
 import Loader from './Loader';
 import { Rating } from 'react-simple-star-rating'
 export default class VendorHome extends React.Component {
@@ -8,9 +8,12 @@ export default class VendorHome extends React.Component {
         super(props);
         this.state = {
             to: [],
-            loading: false
+            loading: false,
+            isQuickPreview: false,
+            desc:""
         }
     }
+
     componentDidMount = () => {
         this.setState({ loading: true })
         let sign = JSON.parse(localStorage.getItem('data1'));
@@ -19,10 +22,29 @@ export default class VendorHome extends React.Component {
             .then(resp => resp.json())
             .then(data => this.setState({ to: data, loading: false }));
     }
+  
+    handleShowMoreLink = (desc) => {
+        this.setState({isQuickPreview:true,desc:desc})
+    }
+
     render() {
         return (
             this.state.loading ? <Loader /> :
                 <div className='vhome'>
+                    <Modal size="lg" show={this.state.isQuickPreview} onHide={() => this.setState({isQuickPreview:false})}>
+                        <Modal.Header closeButton>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Row>
+                                <div className="mt-1">{this.state.desc}</div>
+                            </Row>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={() => this.setState({isQuickPreview:false})}>
+                                Close
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                     {this.state.to.length !== 0 ?
                         <div className='vhome_container'>
                             <div className='vhome_row'>
@@ -51,11 +73,11 @@ export default class VendorHome extends React.Component {
                                                         <tr key={o.p_id}>
                                                             <td>{o.p_id}</td>
                                                             <td>{o.pname}</td>
-                                                            <td>{o.pdesc}</td>
+                                                            <td>{o.pdesc.substring(0,100)}... <a style={{color:"blue", cursor:"pointer"}} onClick={(e)=>this.handleShowMoreLink(o.pdesc)}>Show More</a></td>
                                                             <td>₹ {o.pprice}</td>
                                                             <td>{o.pqty}</td>
                                                             <td>{o.noOfPages}</td>
-                                                            <td>{o.language}</td>
+                                                            <td>{o.language?.language}</td>
                                                             <td>{o?.publisher?.p_name}</td>
                                                             <td>
                                                                 {o?.categories.map(cat => (

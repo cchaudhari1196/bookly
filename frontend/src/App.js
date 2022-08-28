@@ -17,7 +17,6 @@ import AddProduct from './components/AddProduct.js';
 import Register from './components/Register.js';
 import ViewProducts from './components/ViewProducts.js';
 import ViewCustomer from './components/ViewCustomer.js';
-import ViewCategory from './components/ViewCategory.js';
 import ViewVendor from './components/ViewVendor.js';
 import ViewOrders from './components/ViewOrders.js';
 import ViewOrderbyuid from './components/ViewOrderbyuid.js';
@@ -35,6 +34,7 @@ import Vwallet from './components/Vwallet.js';
 import AboutUs from './components/AboutUs.js';
 import { ToastContainer } from 'react-toastify';
 import CategoriesWiseProduct from './components/categoriesWiseProduct';
+import AddLangauage from './components/AddLanguage';
 function App() {
   return (
     <Router>
@@ -53,6 +53,8 @@ function App() {
           <Route path="/vendor" element={<><VendorHeader /> <VendorHome /></>} />
           <Route path="/addcategory" element={<><AdminHeader />
             <AddCategory /></>} />
+            <Route path="/addlanguage" element={<><AdminHeader />
+            <AddLangauage /></>} />
           <Route path="/viewproducts" element={<><AdminHeader />
             <ViewProducts /></>} />
           <Route path="/viewcustomer" element={<><AdminHeader />
@@ -61,8 +63,6 @@ function App() {
             <ViewVendor /></>} />
           <Route path="/vieworders" element={<><AdminHeader />
             <ViewOrders /></>} />
-          <Route path="/viewcategory" element={<><AdminHeader />
-            <ViewCategory /></>} />
           <Route path="/addproduct" element={<><VendorHeader />
             <AddProduct /></>} />
           <Route path="/viewproductoutofstock" element={<><VendorHeader />

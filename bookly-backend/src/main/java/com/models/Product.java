@@ -6,7 +6,7 @@ public class Product {
     private List<Integer> categoryIds;
     private List<Integer> authorIds;
     private Integer publisherId;
-    private String language;
+    private Integer language;
     private Integer pprice;
     private Integer pqty;
     private String imageUrl;
@@ -39,11 +39,11 @@ public class Product {
         this.publisherId = publisherId;
     }
 
-    public String getLanguage() {
+    public Integer getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(Integer language) {
         this.language = language;
     }
 
