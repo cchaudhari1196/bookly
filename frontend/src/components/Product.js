@@ -62,7 +62,7 @@ function Product({
         <Modal.Body>
           <Row>
             <Col md={4}>
-              <div style={{ height: "150px" }}>
+              <div style={{ height: '150px' }}>
                 <img src={imageUrl} alt="productImage" />
               </div>
               <div className="mt-2">
@@ -71,31 +71,31 @@ function Product({
                     <button className="addToCartBtn"> Go to cart</button>
                   </Link>
                 ) : (
-                  <button onClick={addToBasket} className="addToCartBtn" style={{padding:"6px"}}>
+                  <button
+                    onClick={addToBasket}
+                    className="addToCartBtn"
+                    style={{ padding: '6px' }}
+                  >
                     + Add to Basket
                   </button>
                 )}
               </div>
             </Col>
             <Col md={8}>
-              <div style={{ fontSize: "18px", fontWeight: "bold" }}>
+              <div style={{ fontSize: '18px', fontWeight: 'bold' }}>
                 ₹{price}
               </div>
-              <div style={{ fontStyle: "italic" }} className="mt-1">
+              <div style={{ fontStyle: 'italic' }} className="mt-1">
                 {title}
               </div>
               <div style={{ color: 'grey' }} className="mt-1">
                 By:
-                {
-                  authors.map(a => (
-                    <span key={a?.id}> {a?.a_name}(Author) | </span>
-                  ))
-                }
+                {authors.map((a) => (
+                  <span key={a?.id}> {a?.a_name}(Author) | </span>
+                ))}
                 Publisher : <span>{publisher?.p_name}</span>
               </div>
-              <div className="mt-1">
-              {describe}
-              </div>
+              <div className="mt-1">{describe}</div>
             </Col>
           </Row>
         </Modal.Body>
@@ -122,32 +122,38 @@ function Product({
             style={{
               borderRadius: '4px',
               boxShadow: 'rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px',
+              objectFit: 'contain',
+              height: '100%',
             }}
           />
         </div>
         <Card.Body>
           <Card.Title>{title}</Card.Title>
           <Card.Text style={{ marginBottom: '0px' }}>
-            <button className="mb-1" style={{ border: '1px solid #6e1230', backgroundColor: "transparent", color: "#6e1230", fontSize: "14px" }}
+            <button
+              className="mb-1"
+              style={{
+                border: '1px solid #6e1230',
+                backgroundColor: 'transparent',
+                color: '#6e1230',
+                fontSize: '14px',
+              }}
               onClick={() => setIsQuickPreview(true)}
-            >QUICK PREVIEW</button>
+            >
+              QUICK PREVIEW
+            </button>
           </Card.Text>
           <Card.Text style={{ marginBottom: '0px' }}>
-            {
-              authors.map(a => (
-                <div>{a.a_name}</div>
-              ))
-            }
+            {authors.map((a) => (
+              <div>{a.a_name}</div>
+            ))}
           </Card.Text>
           <Card.Text>
             {/* <small>Rs </small> */}
             <strong>₹{price}</strong>
           </Card.Text>
           <Card.Text style={{ marginBottom: '0px' }}>
-            Available Stocks :
-            <strong>
-              {p_qty}
-            </strong>
+            Available Stocks :<strong>{p_qty}</strong>
           </Card.Text>
           <Card.Text className="product_rating">
             {/* {Array(rating)
