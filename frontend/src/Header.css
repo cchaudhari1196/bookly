@@ -1,3 +1,8 @@
+#basic-nav-dropdown{
+    max-height: 100px;
+    align-items: center;
+    color: rgb(110, 18, 48);
+}
 .header{
     height:60px;
     display:flex;

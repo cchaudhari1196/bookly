@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../Product.css'
 import { useStateValue } from './Stateprovider'
-import { Row, Card, Col } from 'react-bootstrap'
+import { Row, Card, Col, Modal, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Rating } from 'react-simple-star-rating'
 
@@ -21,6 +21,7 @@ function Product({
   publisher,
 }) {
   const [{ basket }, dispatch] = useStateValue()
+  const [isQuickPreview, setIsQuickPreview] = useState(false)
   console.log('this is basket', basket)
   //let x=10;
 
@@ -54,6 +55,59 @@ function Product({
   }
   return (
     <Col>
+      <Modal show={isQuickPreview} onHide={() => setIsQuickPreview(false)}>
+        <Modal.Header closeButton>
+          {/* <Modal.Title>Modal heading</Modal.Title> */}
+        </Modal.Header>
+        <Modal.Body>
+          <Row>
+            <Col md={4}>
+              <div style={{ height: "150px" }}>
+                <img src={imageUrl} alt="productImage" />
+              </div>
+              <div className="mt-2">
+                {checkProductInCart() ? (
+                  <Link to="/checkout">
+                    <button className="addToCartBtn"> Go to cart</button>
+                  </Link>
+                ) : (
+                  <button onClick={addToBasket} className="addToCartBtn" style={{padding:"6px"}}>
+                    + Add to Basket
+                  </button>
+                )}
+              </div>
+            </Col>
+            <Col md={8}>
+              <div style={{ fontSize: "18px", fontWeight: "bold" }}>
+                ₹{price}
+              </div>
+              <div style={{ fontStyle: "italic" }} className="mt-1">
+                {title}
+              </div>
+              <div style={{ color: 'grey' }} className="mt-1">
+                By:
+                {
+                  authors.map(a => (
+                    <span key={a?.id}> {a?.a_name}(Author) | </span>
+                  ))
+                }
+                Publisher : <span>{publisher?.p_name}</span>
+              </div>
+              <div className="mt-1">
+              {describe}
+              </div>
+            </Col>
+          </Row>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setIsQuickPreview(false)}>
+            Close
+          </Button>
+          {/* <Button variant="primary" onClick={()=>setIsQuickPreview(false)}>
+            Save Changes
+          </Button> */}
+        </Modal.Footer>
+      </Modal>
       <Card
         style={{
           padding: '20px',
@@ -74,7 +128,9 @@ function Product({
         <Card.Body>
           <Card.Title>{title}</Card.Title>
           <Card.Text style={{ marginBottom: '0px' }}>
-            <button className="mb-1" style={{border: '1px solid #6e1230',backgroundColor:"transparent",color:"#6e1230",fontSize:"14px"}}>QUICK PREVIEW</button>
+            <button className="mb-1" style={{ border: '1px solid #6e1230', backgroundColor: "transparent", color: "#6e1230", fontSize: "14px" }}
+              onClick={() => setIsQuickPreview(true)}
+            >QUICK PREVIEW</button>
           </Card.Text>
           <Card.Text style={{ marginBottom: '0px' }}>
             {
@@ -88,7 +144,7 @@ function Product({
             <strong>₹{price}</strong>
           </Card.Text>
           <Card.Text style={{ marginBottom: '0px' }}>
-            'Available Stocks :
+            Available Stocks :
             <strong>
               {p_qty}
             </strong>

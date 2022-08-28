@@ -52,14 +52,15 @@ const Search = (props) => {
                     title={o.pname}
                     price={o.pprice}
                     image={Photo2}
-                    brand={o.pbrand}
                     describe={o.pdesc}
-                    size={o.psize}
                     rating={o.prating}
-                    c_type={o.cat.c_type}
-                    c_name={o.cat.c_name}
+                    categories={o.categories}
+                    authors={o.authors}
                     p_qty={o.pqty}
                     imageUrl={o.imageUrl}
+                    language={o.language}
+                    noOfPages={o.noOfPages}
+                    publisher={o.publisher}
                   />
                 </div>
               )

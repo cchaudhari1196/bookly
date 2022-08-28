@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../Header.css'
 import SearchIcon from '@material-ui/icons/Search'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
@@ -13,6 +13,7 @@ import {
   Form,
   FormControl,
   Container,
+  NavDropdown
 } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
@@ -20,6 +21,7 @@ function Header() {
   const history = useNavigate()
   const [{ basket }] = useStateValue()
   const [text, setText] = useState('')
+  const [allCategories, setAllCategories] = useState([])
   let textInput = React.createRef()
   localStorage.setItem('text', text)
   //console.log(JSON.parse(localStorage.getItem('data1')));
@@ -38,6 +40,14 @@ function Header() {
 
     // localStorage.removeItem('text')
   }
+  useEffect(() => {
+    fetch(process.env.REACT_APP_BASE_URL + "/category")
+      .then(resp => resp.json())
+      .then(data => {
+        console.log(JSON.stringify(data));
+        setAllCategories(data)
+      });
+  }, [])
   return (
     // <div className='header'>
     //     <Link to="/">
@@ -104,7 +114,7 @@ function Header() {
             >
               Home
             </NavLink>
-            <NavLink
+            {/* <NavLink
               to={'/raw'}
               className={
                 window.location.pathname === '/raw'
@@ -123,7 +133,14 @@ function Header() {
               }
             >
               Stitched
-            </NavLink>
+            </NavLink> */}
+
+            <NavDropdown title="Categories" id="basic-nav-dropdown" >
+              {allCategories.map(c => (
+                <NavDropdown.Item href={`/products/${c.c_id}`} key={c.c_id}>{c.c_name}</NavDropdown.Item>
+              ))}
+            </NavDropdown>
+
             <NavLink
               to={'/about-us'}
               className={
