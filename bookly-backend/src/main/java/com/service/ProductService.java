@@ -32,9 +32,6 @@ public class ProductService {
 		return productRepository.save(p);
 	}
 
-	public List<Product> getByCategoryId(int c_id) {
-		return productRepository.getByCategoryId(c_id);
-	}
 	public List<Product> searchbykeyword(String pname, String pdesc) {
 		// TODO Auto-generated method stub
 		return productRepository.searchbykeyword(pname, pdesc);
@@ -43,30 +40,15 @@ public class ProductService {
 	public List<Product> getProductsByCategory(String category) {
 		return productRepository.getByCategoryName(category);
 	}
-	public List<Product> getAllStitched() {
-		return productRepository.getAllStitched();
+
+	public List<Product> getProductsByCategoryId(Integer categoryId) {
+		return productRepository.getByCategoryId(categoryId);
 	}
+
 	public List<Product> getByVid(int v_id) {
 		return productRepository.getByVid(v_id);
 	}
-	public boolean productStatusAction(int p_id,float pprice,int pqty,String action) 
-	{
-		// TODO Auto-generated method stub
-		productRepository.productAudit(p_id);
-		if(action.equals("yes"))
-		{
-			productRepository.productadd(p_id);
-			//prepo.gettotalprice(p_id);
-			//prepo.pdadminwallet(pprice,pqty);
-			return true;
-		}
-		else
-		{
-			productRepository.productdel(p_id);
-			return false;
-		}
-		
-	}
+
 	public int addproduct(com.models.Product product) throws Exception {
 		try{
 			Product productEntity = new Product();

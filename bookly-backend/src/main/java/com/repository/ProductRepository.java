@@ -16,6 +16,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query(value = "select p from Product p join p.categories c where c.c_name=?1")
 	public List<Product> getByCategoryName( String name);
 
+	@Query(value = "select p from Product p join p.categories c where c.c_id=?1")
+	public List<Product> getByCategoryId( int cId);
+
 	@Query(value = "select * from product where pname=?1 or pdesc=?2", nativeQuery = true)
 	public List<Product> searchbykeyword(String pname, String pdesc);
 
