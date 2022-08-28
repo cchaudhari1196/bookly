@@ -40,8 +40,8 @@ public class ProductService {
 		return productRepository.searchbykeyword(pname, pdesc);
 		
 	}
-	public List<Product> getAllRaw() {
-		return productRepository.getAllRaw();
+	public List<Product> getProductsByCategory(String category) {
+		return productRepository.getByCategoryName(category);
 	}
 	public List<Product> getAllStitched() {
 		return productRepository.getAllStitched();
