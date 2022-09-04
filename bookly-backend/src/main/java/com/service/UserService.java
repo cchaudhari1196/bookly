@@ -73,7 +73,6 @@ public class UserService
 			existinguser.setU_lname(user.getU_lname());
 			existinguser.setU_phone(user.getU_phone());
 			existinguser.setU_email(user.getU_email());
-			existinguser.setU_password(user.getU_password());
 			existinguser.setU_address(user.getU_address());
 		}
 		

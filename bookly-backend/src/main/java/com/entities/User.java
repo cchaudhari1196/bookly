@@ -98,30 +98,19 @@ public class User {
 		this.wallet = wallet;
 	}
 
+	public String getU_fname() {
+		return u_fname;
+	}
 
+	public void setU_fname(String u_fname) {
+		this.u_fname = u_fname;
+	}
 
 	public String getU_lname() {
 		return u_lname;
 	}
 
-
-
 	public void setU_lname(String u_lname) {
 		this.u_lname = u_lname;
 	}
-
-
-
-	public String getU_fname() {
-		return u_fname;
-	}
-
-
-
-	public void setU_fname(String u_fname) {
-		this.u_fname = u_fname;
-	}
-	
-	
-	
 }

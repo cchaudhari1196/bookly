@@ -42,11 +42,11 @@ public class UserController
 		return new ResponseEntity<>("Wrong Username and Password", HttpStatus.FORBIDDEN);
 	}
 	
-	@PutMapping("/updateuser")
-	public User updateUser(@RequestBody User user)
+	@PutMapping
+	public ResponseEntity updateUser(@RequestBody User user)
 	{
-		return userservice.updateUser(user);
-	}//Ok
+		return new ResponseEntity<>(userservice.updateUser(user), HttpStatus.OK);
+	}
 
 	@PostMapping("/addMoney")
 	public User addMoneyToUserWallet(@RequestBody WalletHistory wallet)

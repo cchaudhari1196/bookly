@@ -278,11 +278,6 @@ export default class AddProduct extends React.Component {
     this.setState({ selectedLanguage: selectedOption })
   }
   render() {
-    const options = [
-      { value: 'chocolate', label: 'Chocolate' },
-      { value: 'strawberry', label: 'Strawberry' },
-      { value: 'vanilla', label: 'Vanilla' }
-    ]
     console.log(this.state.p_image)
     return (
       <div className="register">

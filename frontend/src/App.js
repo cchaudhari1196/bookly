@@ -35,6 +35,8 @@ import AboutUs from './components/AboutUs.js';
 import { ToastContainer } from 'react-toastify';
 import CategoriesWiseProduct from './components/categoriesWiseProduct';
 import AddLangauage from './components/AddLanguage';
+import MyProfile from './components/MyProfile';
+
 function App() {
   return (
     <Router>
@@ -85,6 +87,9 @@ function App() {
             <StitchedProducts /></>} />
           <Route path="/about-us" element={<><Header />
             <AboutUs /></>} />
+            
+          <Route path="/profile" element={<><Header />
+            <MyProfile></MyProfile></>} />
         </Routes>
       </div>
     </Router>
