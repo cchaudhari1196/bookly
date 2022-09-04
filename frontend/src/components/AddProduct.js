@@ -6,6 +6,11 @@ import { Form, Modal, Button } from 'react-bootstrap'
 import axios from 'axios'
 import Select from 'react-select'
 import Loader from './Loader'
+import { Editor } from "react-draft-wysiwyg";
+import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
+
 export default class AddProduct extends React.Component {
   constructor(props) {
     super(props)
@@ -46,11 +51,27 @@ export default class AddProduct extends React.Component {
       selectedPublishers: {},
       selectedCategories: [],
       selectedLanguage: [],
+      describe: EditorState.createEmpty(),
     }
     this.handleOption = this.handleOption.bind(this)
     this.onChangeImage = this.onChangeImage.bind(this)
     this.onChangeImage = this.onChangeImage.bind(this)
   }
+
+  onEditorStateChange = (editorState) => {
+    var str = '{"_immutable":{"allowUndo":true,"currentContent":{"entityMap":{},"blockMap":{"574vs":{"key":"574vs","type":"unstyled","text":"Something","characterList":[{"style":[],"entity":null},{"style":[],"entity":null},{"style":[],"entity":null},{"style":[],"entity":null},{"style":[],"entity":null},{"style":[],"entity":null},{"style":[],"entity":null},{"style":[],"entity":null},{"style":[],"entity":null}],"depth":0,"data":{}}},"selectionBefore":{"anchorKey":"574vs","anchorOffset":0,"focusKey":"574vs","focusOffset":0,"isBackward":false,"hasFocus":true},"selectionAfter":{"anchorKey":"574vs","anchorOffset":9,"focusKey":"574vs","focusOffset":9,"isBackward":false,"hasFocus":true}},"decorator":{"_decorators":[{}]},"directionMap":{"574vs":"LTR"},"forceSelection":false,"inCompositionMode":false,"inlineStyleOverride":null,"lastChangeType":"insert-characters","nativelyRenderedContent":{"entityMap":{},"blockMap":{"574vs":{"key":"574vs","type":"unstyled","text":"Something","characterList":[{"style":[],"entity":null},{"style":[],"entity":null},{"style":[],"entity":null},{"style":[],"entity":null},{"style":[],"entity":null},{"style":[],"entity":null},{"style":[],"entity":null},{"style":[],"entity":null},{"style":[],"entity":null}],"depth":0,"data":{}}},"selectionBefore":{"anchorKey":"574vs","anchorOffset":0,"focusKey":"574vs","focusOffset":0,"isBackward":false,"hasFocus":true},"selectionAfter":{"anchorKey":"574vs","anchorOffset":9,"focusKey":"574vs","focusOffset":9,"isBackward":false,"hasFocus":true}},"redoStack":[],"selection":{"anchorKey":"574vs","anchorOffset":9,"focusKey":"574vs","focusOffset":9,"isBackward":false,"hasFocus":true},"treeMap":{"574vs":[{"start":0,"end":9,"decoratorKey":null,"leaves":[{"start":0,"end":9}]}]},"undoStack":[{"entityMap":{},"blockMap":{"574vs":{"key":"574vs","type":"unstyled","text":"","characterList":[],"depth":0,"data":{}}},"selectionBefore":{"anchorKey":"574vs","anchorOffset":0,"focusKey":"574vs","focusOffset":0,"isBackward":false,"hasFocus":false},"selectionAfter":{"anchorKey":"574vs","anchorOffset":0,"focusKey":"574vs","focusOffset":0,"isBackward":false,"hasFocus":false}}]}}';
+    var strrObj = JSON.parse(str);
+    console.log(strrObj)
+    this.setState({
+      editorState:strrObj,
+    });
+  };
+
+  convertToEditorState = (editorContent) => {
+    const content = convertFromRaw(JSON.parse(editorContent));
+    const editorState = EditorState.createWithContent(content);
+    return editorState;
+  };
 
   handleChange = (a) => {
     const input = a.target
@@ -131,16 +152,7 @@ export default class AddProduct extends React.Component {
   handleOption(e) {
     this.setState({ selectedOption: e.target.value })
   }
-  // convertImage = async (imageBlobUrl, imageName) => {
-  //     const formData = new FormData();
-  //     let blob = await fetch(imageBlobUrl).then((r) => r.blob());
-  //     var file = new File([blob], imageName);
-  //     formData.append("file", file);
-  //     console.log(formData);
-  //     return formData
-  //     // let res = await this.uploadImage(formData);
-  //     // return res.data;
-  // };
+
   async convertToFile(customerFabricImg, fabricImgType, fabricImgName) {
     if (fabricImgType === undefined) {
       return null
@@ -187,9 +199,14 @@ export default class AddProduct extends React.Component {
   submitForm = async (e) => {
     e.preventDefault()
     let sign = JSON.parse(localStorage.getItem('data1'))
+    
+    let contentState = this.state.describe.getCurrentContent()
+    let note = {content: convertToRaw(contentState)}
+    let stringifiedDescription = JSON.stringify(note.content)
+
     let data = {
       'pname': this.state.title,
-      'pdesc': this.state.describe,
+      'pdesc': stringifiedDescription,
       'language': this.state.selectedLanguage.value,
       'pprice': Number(this.state.price),
       'pqty': this.state.qty,
@@ -283,7 +300,6 @@ export default class AddProduct extends React.Component {
       { value: 'strawberry', label: 'Strawberry' },
       { value: 'vanilla', label: 'Vanilla' }
     ]
-    console.log(this.state.p_image)
     return (
       <div className="register">
         {/* add new author */}
@@ -408,7 +424,7 @@ export default class AddProduct extends React.Component {
               />
             </Form.Group>
 
-            <Form.Group className="mb-2" controlId="formBasicEmail">
+            {/* <Form.Group className="mb-2" controlId="formBasicEmail">
               <Form.Label> Description</Form.Label>
               <Form.Control
                 as="textarea"
@@ -417,7 +433,15 @@ export default class AddProduct extends React.Component {
                 value={this.state.describe}
                 onChange={this.handleChange}
               />
-            </Form.Group>
+            </Form.Group> */}
+            <Editor
+              editorState={this.state.editorState}
+              toolbarClassName="toolbarClassName"
+              wrapperClassName="wrapperClassName"
+              editorClassName="editorClassName"
+              onEditorStateChange={this.onEditorStateChange}
+              wrapperStyle={{ width: 800, border: "1px solid black" }}
+            />
             <Form.Group className="mb-2" controlId="formBasicEmail">
               <Form.Label> Quantity</Form.Label>
               <Form.Control

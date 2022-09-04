@@ -3,6 +3,10 @@ import '../VendorHome.css';
 import { Button, Modal, Row, Table } from 'react-bootstrap';
 import Loader from './Loader';
 import { Rating } from 'react-simple-star-rating'
+import { convertFromRaw, EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import {stateToHTML} from 'draft-js-export-html';
+
 export default class VendorHome extends React.Component {
     constructor(props) {
         super(props);
@@ -73,19 +77,22 @@ export default class VendorHome extends React.Component {
                                                         <tr key={o.p_id}>
                                                             <td>{o.p_id}</td>
                                                             <td>{o.pname}</td>
-                                                            <td>{o.pdesc.substring(0,100)}... <a style={{color:"blue", cursor:"pointer"}} onClick={(e)=>this.handleShowMoreLink(o.pdesc)}>Show More</a></td>
+                                                            {/* <td>{o.pdesc.substring(0,100)}... <a style={{color:"blue", cursor:"pointer"}} onClick={(e)=>this.handleShowMoreLink(o.pdesc)}>Show More</a></td> */}
+                                                            <td>
+                                                                {stateToHTML(JSON.parse(o.pdesc))}
+                                                            </td>
                                                             <td>₹ {o.pprice}</td>
                                                             <td>{o.pqty}</td>
                                                             <td>{o.noOfPages}</td>
                                                             <td>{o.language?.language}</td>
                                                             <td>{o?.publisher?.p_name}</td>
                                                             <td>
-                                                                {o?.categories.map(cat => (
+                                                                {o?.categories?.map(cat => (
                                                                     <div key={cat.id}>{cat.c_name}</div>
                                                                 ))}
                                                             </td>
                                                             <td>
-                                                                {o?.authors.map(author => (
+                                                                {o?.authors?.map(author => (
                                                                     <div key={author.id}>{author.a_name}</div>
                                                                 ))}
                                                             </td>
