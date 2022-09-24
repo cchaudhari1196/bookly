@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+//controller -> service -> repos -> db
+
 @Service
 public class ProductService {
 	@Autowired

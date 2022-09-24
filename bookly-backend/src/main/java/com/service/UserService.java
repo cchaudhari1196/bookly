@@ -99,5 +99,14 @@ public class UserService
 		// TODO Auto-generated method stub
 		return userrepo.findAll();
 	}
+
+	public User approveUser(int u_id, Boolean u_status) {
+		User user = userrepo.findById(u_id).orElse(null);
+		if(user!= null){
+			user.setU_status(u_status);
+			return userrepo.save(user);
+		}
+		return null;
+	}
 }
 

@@ -27,6 +27,12 @@ public class UserController
 		return userservice.registerUser(user);
 	}
 
+	@PatchMapping("/approve/{u_id}/{u_status}")
+	public User approvevendor(@PathVariable("u_id") int u_id, @PathVariable("u_status") Boolean u_status)
+	{
+		return userservice.approveUser(u_id, u_status);
+	}
+
 	@GetMapping("/{id}")
 	public User getUser(@PathVariable("id") int id)
 	{

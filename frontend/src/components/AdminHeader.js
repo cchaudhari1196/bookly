@@ -77,7 +77,7 @@ function AdminHeader() {
             >
               Vendors
             </NavLink>
-            <NavLink
+            {/* <NavLink
               to={'/vieworders'}
               className={
                 window.location.pathname === '/vieworders'
@@ -86,7 +86,7 @@ function AdminHeader() {
               }
             >
               Orders
-            </NavLink>
+            </NavLink> */}
           </Nav>
           <Nav.Link>
             <Link to={'/awallet'} className="headerLink">

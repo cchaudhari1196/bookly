@@ -107,6 +107,17 @@ function LoginIn() {
             .then(data => {
                 if (data) {
                     localStorage.setItem('data1', JSON.stringify(data));
+                    let sign = JSON.parse(localStorage.getItem('data1'));
+                    if (sign.u_status) {
+                        window.location.href = '/';
+                    }
+                    else {
+                        alert("You are not Approved By the Admin");
+                        localStorage.removeItem("data1");
+                        window.location.href = '/';
+
+                    }
+
                     history('/')
                 }
                 else {

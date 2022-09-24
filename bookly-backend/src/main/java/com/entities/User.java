@@ -19,6 +19,7 @@ public class User {
 	private String u_address;
 	private String u_email;
 	private String u_password;
+	private Boolean u_status;
 	private float wallet=2000f;
 	
 	public User() {
@@ -112,5 +113,13 @@ public class User {
 
 	public void setU_lname(String u_lname) {
 		this.u_lname = u_lname;
+	}
+
+	public Boolean getU_status() {
+		return u_status;
+	}
+
+	public void setU_status(Boolean u_status) {
+		this.u_status = u_status;
 	}
 }

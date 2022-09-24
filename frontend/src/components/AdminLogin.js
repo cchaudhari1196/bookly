@@ -60,18 +60,18 @@ class AdminLogin extends React.Component {
 
         return isValid;
     }
-    handleChange = (e) => {
+    handleChange = async (e) => {
         this.setState({ isError: false })
         const input = e.target;
         const nm = input.name;
         const val = input.value;
-        this.setState({ [nm]: val });
+        await this.setState({ [nm]: val });
         if (e.target.name === "adminid") {
             if (this.checkValidity(e.target.value, this.state.inputElements.email.validation)) {
-                this.setState({ inputElements: { ...this.state.inputElements, email: { ...this.state.inputElements.email, touched: true, valid: true } } })
+                await this.setState({ inputElements: { ...this.state.inputElements, email: { ...this.state.inputElements.email, touched: true, valid: true } } })
             }
             else {
-                this.setState({ inputElements: { ...this.state.inputElements, email: { ...this.state.inputElements.email, touched: true, valid: false } } })
+                await this.setState({ inputElements: { ...this.state.inputElements, email: { ...this.state.inputElements.email, touched: true, valid: false } } })
             }
             let formIsValid = true;
             for (let inputIdentifier in this.state.inputElements) {

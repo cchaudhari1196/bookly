@@ -1,6 +1,6 @@
 import React from 'react'
 import '../compheader.css';
-import { Table } from 'react-bootstrap';
+import { Form, Table } from 'react-bootstrap';
 
 export default class ViewCustomer extends React.Component {
     constructor(props) {
@@ -15,6 +15,33 @@ export default class ViewCustomer extends React.Component {
             .then(data => this.setState({ to: data }));
 
     }
+
+    
+    onChangeAproveStatus = async (e, o) => {
+        e.preventDefault()
+        let allCustomers = [...this.state.to]
+        allCustomers.filter(u => u.u_id === o.u_id).map(async (u) => {
+
+            console.log(u.u_status)
+
+            await fetch(process.env.REACT_APP_BASE_URL + '/user/approve/' + o.u_id + "/" + !u.u_status, {
+                method: 'PATCH', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    u.u_status = !u.u_status
+                    this.setState({ to: allCustomers })
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        })
+    }
+
+
     render() {
         const to1 = this.state.to.length;
         return (
@@ -31,6 +58,7 @@ export default class ViewCustomer extends React.Component {
                                     <th>Customer Address</th>
                                     <th>Customer ContactNumber</th>
                                     <th>Customer Wallet</th>
+                                    <th>Customer Approve</th>
                                 </tr>
                                 {
                                     this.state.to.map(
@@ -44,6 +72,15 @@ export default class ViewCustomer extends React.Component {
                                                     <td>{o.u_address}</td>
                                                     <td>{o.u_phone}</td>
                                                     <td>{o.wallet}</td>
+                                                    <td>
+                                                        <Form.Check
+                                                            type="switch"
+                                                            id="custom-switch5"
+                                                            checked={(o.u_status === "true" || o.u_status === true) ? true : false}
+                                                            onChange={(e) => this.onChangeAproveStatus(e, o)}
+                                                            className="mt-2"
+                                                        />
+                                                    </td>
                                                 </tr>
                                             );
                                         }
@@ -60,6 +97,7 @@ export default class ViewCustomer extends React.Component {
                                         <th>Customer Address</th>
                                         <th>Customer ContactNumber</th>
                                         <th>Customer Wallet</th>
+                                        <th>Customer Approve</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -75,6 +113,15 @@ export default class ViewCustomer extends React.Component {
                                                         <td>{o.u_address}</td>
                                                         <td>{o.u_phone}</td>
                                                         <td>{o.wallet}</td>
+                                                        <td>
+                                                            <Form.Check
+                                                                type="switch"
+                                                                id="custom-switch5"
+                                                                checked={(o.u_status === "true" || o.u_status === true) ? true : false}
+                                                                onChange={(e) => this.onChangeAproveStatus(e, o)}
+                                                                className="mt-2"
+                                                            />
+                                                        </td>
                                                     </tr>
                                                 );
                                             }
