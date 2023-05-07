@@ -50,7 +50,12 @@
 			<artifactId>razorpay-java</artifactId>
 			<version>1.4.3</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
